@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estacionamento - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f172a; /* Slate 900 */
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%);
+            padding: 30px 20px;
+            color: #334155;
+        }
+
+        /* Card do Painel de Login */
+        form {
+            width: 100%;
+            max-width: 440px;
+            background: #ffffff;
+            padding: 50px 40px 40px;
+            border-radius: 20px;
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            animation: containerAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Crachá / Badge do Sistema no Topo */
+        form::before {
+            content: '• PARK CONTROL • ACESSO AO SISTEMA';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            white-space: nowrap;
+        }
+
+        /* Título Principal */
+        h2 {
+            color: #0f172a;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 28px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Ícone [P] ao lado do título */
+        h2::before {
+            content: 'P';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background: #f59e0b;
+            color: #0f172a;
+            font-weight: 900;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+
+        h2::after {
+            content: '';
+            display: none;
+        }
+
+        /* Estilização Geral dos Inputs */
+        input {
+            width: 100%;
+            height: 50px;
+            padding: 0 16px 0 44px;
+            margin-bottom: 18px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            background-color: #f8fafc;
+            background-repeat: no-repeat;
+            background-position: 14px center;
+            background-size: 18px 18px;
+            color: #1e293b;
+            outline: none;
+            font-family: inherit;
+            transition: all 0.2s ease-in-out;
+            opacity: 1;
+            animation: none;
+        }
+
+        /* Ícones SVG embutidos via CSS */
+        #inputEmail {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%2394a3b8" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>');
+        }
+
+        #inputSenha {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%2394a3b8" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>');
+        }
+
+        /* Estados dos Inputs (Focus / Hover) */
+        input:focus {
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        input:hover:not(:focus) {
+            border-color: #cbd5e1;
+            background-color: #ffffff;
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Checkbox Lembrar-me */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin: -4px 0 20px 2px;
+            gap: 8px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            accent-color: #2563eb;
+        }
+
+        .remember-me label {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Botão de Entrar */
+        button[type="submit"] {
+            width: 100%;
+            height: 52px;
+            margin-top: 6px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(1px);
+        }
+
+        button[type="submit"]:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Link Inferior */
+        h3 {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        h3 a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 4px;
+            transition: color 0.2s ease;
+        }
+
+        h3 a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* Animação Suave */
+        @keyframes containerAppear {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Responsividade para Telas Pequenas */
+        @media (max-width: 480px) {
+            form {
+                padding: 40px 24px 30px;
+            }
+
+            form::before {
+                font-size: 9px;
+                padding: 4px 12px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<form method="post" action="/autenticar">
+    <h2>Login</h2>
+
+    <input type="email" id="inputEmail" name="inputEmail" placeholder="Insira seu email">
+    <input type="password" id="inputSenha" name="inputSenha" placeholder="Insira sua senha">
+
+    <button type="submit">Entrar</button>
+
+    <h3>Não tem cadastro? <a href="/cadastro">Clique aqui</a></h3>
+</form>
+
+</body>
+</html>

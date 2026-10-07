@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estacionamento - Painel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f172a; /* Slate 900 */
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%);
+            padding: 30px 20px;
+            color: #334155;
+        }
+
+        .area {
+            width: 100%;
+            max-width: 580px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card Principal */
+        .container {
+            background: #ffffff;
+            padding: 55px 45px 45px;
+            border-radius: 20px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            border-top: 6px solid #2563eb;
+            animation: containerAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Crachá / Badge do Sistema no Topo */
+        .container::before {
+            content: '• PARK CONTROL • PAINEL DE CONTROLE';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            white-space: nowrap;
+        }
+
+        /* Título do Painel com Ícone */
+        h1 {
+            color: #0f172a;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        h1::before {
+            content: 'P';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #f59e0b;
+            color: #0f172a;
+            font-weight: 900;
+            border-radius: 12px;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.25);
+        }
+
+        h1::after {
+            content: '';
+            display: none;
+        }
+
+        /* Grupo de Botões de Ação */
+        .botoes {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Botões Estilizados */
+        .btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            border: none;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Caixa de Aviso / Implementações */
+        h2 {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+            padding: 14px 20px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+            display: block;
+        }
+
+        /* Badge de Status do Sistema */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #047857;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes containerAppear {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes statusPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                padding: 45px 22px 30px;
+            }
+
+            .container::before {
+                font-size: 9px;
+                padding: 4px 12px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .botoes {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="area">
+
+    <div class="container">
+
+        <h1>Painel Estacionamento</h1>
+
+        <div class="botoes">
+            <a href="/" class="btn">Registrar Entrada</a>
+            <a href="/" class="btn">Registrar Saída</a>
+        </div>
+
+        <h2>Implementações virão!!!!</h2>
+
+        <div class="status">Sistema em desenvolvimento</div>
+    </div>
+
+</div>
+
+</body>
+</html>
